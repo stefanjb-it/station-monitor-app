@@ -54,7 +54,6 @@ data class Leg(
     val cycle: Cycle, val alternatives: ArrayList<Alternative>
     ) {
 }
-//TODO change when parameter
 @JsonClass(generateAdapter = true)
 data class Alternative(
     val tripId: String, val line: Line, val direction: String, @Json(name="when") val whenThere: String, val plannedWhen: String, val delay: String
