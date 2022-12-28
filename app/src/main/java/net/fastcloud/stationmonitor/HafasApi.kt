@@ -20,7 +20,12 @@ class HafasApi {
 }
 interface HafasApiService {
     @GET("/locations/nearby/")
-    fun getStations(@Query("latitude") latitude: Double, @Query("longitude") longitude: Double, @Query("distance") distance: Int):Call<List<Station>>
-    //fun getStations(@Path("lat") latitude: Double, @Path("long") longitude: Double, @Path("dist") distance: Int): Call<List<Station>>
-    //@GET("/stations")
+    //@Headers("Cookie: {tokenId}")
+    fun getNearbyStations(/*@Header("Cookie") tokenId:String,*/ @Query("latitude") latitude: Double, @Query("longitude") longitude: Double, @Query("distance") distance: Int):Call<List<Station>>
+    @GET("/stops/{id}/departures")
+    //@Headers("Cookie: {tokenId}")
+    fun getStationDeparture(/*@Header("Cookie") tokenId:String,*/@Path("id") id:Int): Call<List<Departure>>
+    @GET("/stops/{id}/arrivals")
+    //@Headers("Cookie: {tokenId}")
+    fun getStationArrival(/*@Header("Cookie") tokenId:String,*/@Path("id") id:Int): Call<List<Departure>>
 }

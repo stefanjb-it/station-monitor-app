@@ -1,5 +1,6 @@
 package net.fastcloud.stationmonitor
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -56,7 +57,26 @@ data class Leg(
 //TODO change when parameter
 @JsonClass(generateAdapter = true)
 data class Alternative(
-        val tripId: String, val line: Line, val direction: String, val when: String, val plannedWhen: String, val delay: String
+    val tripId: String, val line: Line, val direction: String, @Json(name="when") val whenThere: String, val plannedWhen: String, val delay: String
     ) {
+}
+@JsonClass(generateAdapter = true)
+data class Remarks(
+    val type: String, val code: String, val text: String
+    ) {
+}
+@JsonClass(generateAdapter = true)
+data class Departure(
+    val tripId: String, val stop: Station, @Json(name="when") val whenThere: String, val plannedWhen: String, val delay: String, val platform: String,
+    val plannedPlatform: String, val prognosisType: String, val direction: String, val provenance: String?, val line: Line, val remarks: List<Remarks>,
+    val origin: String?, val destination: Station
+    ) {
+}
+@JsonClass(generateAdapter = true)
+data class Arrival(
+    val tripId: String, val stop: Station, @Json(name="when") val whenThere: String, val plannedWhen: String, val delay: String, val platform: String,
+    val plannedPlatform: String, val prognosisType: String, val direction: String, val provenance: String?, val line: Line, val remarks: List<Remarks>,
+    val origin: String?, val destination: Station?
+) {
 }
 //TODO more requests: https://json2kt.com/

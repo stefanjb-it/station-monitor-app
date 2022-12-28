@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 23) {
             requestPermissions(PERMISSIONS.toTypedArray(), PERMISSIONS_ALL)
         }
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        /*fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
-        /*fusedLocationClient.getCurrentLocation(
+        fusedLocationClient.getCurrentLocation(
             LocationRequest.PRIORITY_HIGH_ACCURACY,
             object : CancellationToken() {
                 override fun onCanceledRequested(p0: OnTokenCanceledListener) =
@@ -86,5 +86,21 @@ class MainActivity : AppCompatActivity() {
                     })
                 }
             }*/
+        HafasApi().retrofitService.getStationDeparture(
+            691543
+        ).enqueue(object :
+            Callback<List<Departure>> {
+                override fun onResponse(
+                    call: Call<List<Departure>>,
+                    response: Response<List<Departure>>
+                ) {
+                    println(response.body())
+                }
+
+                override fun onFailure(call: Call<List<Departure>>, t: Throwable) {
+                    println("Cannot get location")
+                }
+            }
+        )
     }
 }
