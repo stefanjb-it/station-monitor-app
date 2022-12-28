@@ -1,0 +1,15 @@
+package com.example.example
+
+import com.google.gson.annotations.SerializedName
+
+
+data class Alternatives (
+
+  @SerializedName("tripId"      ) var tripId      : String? = null,
+  @SerializedName("line"        ) var line        : Line?   = Line(),
+  @SerializedName("direction"   ) var direction   : String? = null,
+  @SerializedName("when"        ) var when        : String? = null,
+  @SerializedName("plannedWhen" ) var plannedWhen : String? = null,
+  @SerializedName("delay"       ) var delay       : String? = null
+
+)
