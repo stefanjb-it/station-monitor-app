@@ -31,62 +31,23 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= 23) {
             requestPermissions(PERMISSIONS.toTypedArray(), PERMISSIONS_ALL)
         }
-        /*fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult) {
-                for (location in locationResult.locations){
-                    println(location.toString())
+        HafasApi().retrofitService.getStationDeparture(
+            691543
+        ).enqueue(object :
+            Callback<List<Departure>> {
+                override fun onResponse(
+                    call: Call<List<Departure>>,
+                    response: Response<List<Departure>>
+                ) {
+                    println(response.body())
+                }
+
+                override fun onFailure(call: Call<List<Departure>>, t: Throwable) {
+                    println("Cannot get location")
                 }
             }
-        }
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper());
-        fusedLocationClient.getCurrentLocation(
-            LocationRequest.PRIORITY_HIGH_ACCURACY,
-            object : CancellationToken() {
-                override fun onCanceledRequested(p0: OnTokenCanceledListener) =
-                    CancellationTokenSource().token
-
-                override fun isCancellationRequested() = false
-            })
-            .addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    HafasApi().retrofitService.getStations(
-                        location.latitude,
-                        location.longitude,
-                        250
-                    ).enqueue(object :
-                        Callback<List<Station>> {
-                        override fun onResponse(
-                            call: Call<List<Station>>,
-                            response: Response<List<Station>>
-                        ) {
-                            println(response.body())
-                        }
-
-                        override fun onFailure(call: Call<List<Station>>, t: Throwable) {
-                            println("Cannot get location")
-                        }
-                    })
-                }
-            }*/
-        HafasApi().retrofitService.getStationDeparture(
+        )
+        HafasApi().retrofitService.getStationArrival(
             691543
         ).enqueue(object :
             Callback<List<Departure>> {

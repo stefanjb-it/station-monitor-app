@@ -28,4 +28,7 @@ interface HafasApiService {
     @GET("/stops/{id}/arrivals")
     //@Headers("Cookie: {tokenId}")
     fun getStationArrival(/*@Header("Cookie") tokenId:String,*/@Path("id") id:Int): Call<List<Departure>>
+    @GET("/locations")
+    //@Headers("Cookie: {tokenId}")
+    fun getLocations(/*@Header("Cookie") tokenId:String,*/ @Query("query") query:String, @Query("results") results:Int, @Query("addresses") addresses:Boolean, @Query("poi") poi:Boolean):Call<List<Station>>
 }
