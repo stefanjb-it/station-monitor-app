@@ -32,14 +32,15 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(PERMISSIONS.toTypedArray(), PERMISSIONS_ALL)
         }
         HafasApi().retrofitService.getStationDeparture(
-            691543
+            691543,
+            30
         ).enqueue(object :
             Callback<List<Departure>> {
                 override fun onResponse(
                     call: Call<List<Departure>>,
                     response: Response<List<Departure>>
                 ) {
-                    println(response.body())
+                    println(response.body()?.last())
                 }
 
                 override fun onFailure(call: Call<List<Departure>>, t: Throwable) {
@@ -48,7 +49,8 @@ class MainActivity : AppCompatActivity() {
             }
         )
         HafasApi().retrofitService.getStationArrival(
-            691543
+            691543,
+            30
         ).enqueue(object :
             Callback<List<Departure>> {
                 override fun onResponse(
