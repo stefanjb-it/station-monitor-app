@@ -11,7 +11,7 @@ data class Station(
 }
 @JsonClass(generateAdapter = true)
 data class Location(
-    val type: String, val id: Int, val latitude: Double, val longitude: Double
+    val type: String, val id: Int?, val latitude: Double, val longitude: Double
     ) {
 }
 @JsonClass(generateAdapter = true)
@@ -33,12 +33,12 @@ data class Operator(
 }
 @JsonClass(generateAdapter = true)
 data class Routes(
-    val earlierRef: String, val laterRef: String, val journeys: ArrayList<Journey>, val realtimeDataFrom: Int
+    val earlierRef: String, val laterRef: String, val journeys: List<Journey>, val realtimeDataFrom: Int
     ) {
 }
 @JsonClass(generateAdapter = true)
 data class Journey(
-    val type: String, val legs: ArrayList<Leg>, val refreshToken: String, val cycle: Cycle
+    val type: String, val legs: List<Leg>, val refreshToken: String, val cycle: Cycle?
     ) {
 }
 @JsonClass(generateAdapter = true)
@@ -47,16 +47,16 @@ data class Cycle(
 )
 @JsonClass(generateAdapter = true)
 data class Leg(
-    val origin: Station, val destination: Station, val departure: String, val plannedDeparture: String,  val departureDelay: Int,
-    val arrival: String, val plannedArrival: String, val arrivalDelay: Int, val reachable: Boolean, val tripId: String, val line: Line,
-    val direction: String, val currentLocation: Location, val arrivalPlatform: String, val plannedArrivalPlatform: String,
-    val arrivalPrognosisType: String, val departurePlatform: String, val  plannedDeparturePlatform: String, val departurePrognosisType: String,
-    val cycle: Cycle, val alternatives: ArrayList<Alternative>
+    val origin: Station, val destination: Station, val departure: String, val plannedDeparture: String,  val departureDelay: Int?,
+    val arrival: String, val plannedArrival: String, val arrivalDelay: Int?, val reachable: Boolean?, val tripId: String?, val line: Line?,
+    val direction: String?, val currentLocation: Location?, val arrivalPlatform: String?, val plannedArrivalPlatform: String?,
+    val arrivalPrognosisType: String?, val departurePlatform: String?, val  plannedDeparturePlatform: String?, val departurePrognosisType: String?,
+    val cycle: Cycle?, val alternatives: List<Alternative>?
     ) {
 }
 @JsonClass(generateAdapter = true)
 data class Alternative(
-    val tripId: String, val line: Line, val direction: String, @Json(name="when") val whenThere: String, val plannedWhen: String, val delay: String
+    val tripId: String, val line: Line, val direction: String, @Json(name="when") val whenThere: String, val plannedWhen: String, val delay: String?
     ) {
 }
 @JsonClass(generateAdapter = true)
@@ -66,7 +66,7 @@ data class Remarks(
 }
 @JsonClass(generateAdapter = true)
 data class Departure(
-    val tripId: String, val stop: Station, @Json(name="when") val whenThere: String, val plannedWhen: String, val delay: String, val platform: String,
+    val tripId: String?, val stop: Station, @Json(name="when") val whenThere: String, val plannedWhen: String, val delay: String, val platform: String,
     val plannedPlatform: String, val prognosisType: String, val direction: String, val provenance: String?, val line: Line, val remarks: List<Remarks>,
     val origin: String?, val destination: Station
     ) {
